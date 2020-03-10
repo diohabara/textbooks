@@ -1,0 +1,2 @@
+(* ÀÖ¤«¹õ¤ò¼¨¤¹·¿ *) 
+type color_t = Red | Black 
