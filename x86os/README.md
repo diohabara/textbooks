@@ -18,9 +18,13 @@ sudo apt install bochs
 
 ### Memo(JPN)
 
+### 12章
+
 - `env.bat`と`dev.bat`は作らなかった．
 - `bat`は全て`sh`とした
 - `boot.bat`を使わず`Bochs`で行った．
   - `.bochsrc`は`env`ディレクトリ内に作った．
   - `box.sh`を使って起動するようにした．
 - Bochsでエラーが出たのだが，完全にこの[SO](https://stackoverflow.com/questions/42453852/assembly-problems-running-a-bootloader-in-bochs)と同じで，これを見たら直った
+
+### 章

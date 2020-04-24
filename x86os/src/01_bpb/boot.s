@@ -1,10 +1,10 @@
 entry:
-    jmp ipl
+        jmp ipl
 
-    times 90 - ($ - $$) db 0x90
+        times 90 - ($ - $$) db 0x90 ; BPB
 
 ipl:
-    jmp $
+        jmp $
 
-    times 510 - ($ - $$) db 0x00
-    db 0x55, 0xAA
+        times 510 - ($ - $$) db 0x00
+        db 0x55, 0xAA
