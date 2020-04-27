@@ -1,5 +1,7 @@
 # Memo
 
+Personal notes.
+
 ## NASM
 
 - `$$`
