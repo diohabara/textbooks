@@ -217,7 +217,7 @@ stage_4:
 .s0: db "4th stage...", 0x0A, 0x0D, 0
 .s1: db " A20 Gate Enabled.", 0x0A, 0x0D, 0
 .s2: db " Keyboard LED Test...", 0
-.s3: db " (done)2, 0x0A, 0x0D", 0
+.s3: db " (done)", 0x0A, 0x0D, 0
 .e0: db "["
 .e1: db "ZZ]", 0
 
