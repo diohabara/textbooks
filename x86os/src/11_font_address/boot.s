@@ -130,7 +130,7 @@ stage_3rd:
   ;data
 .s0 db "3rd stage...", 0x0A, 0x0D, 0
 .s1: db "Font Address="
-.p1: db "ZZZZ"
+.p1: db "ZZZZ:"
 .p2: db "ZZZZ", 0x0A, 0x0D, 0
   db	0x0A, 0x0D, 0
 
