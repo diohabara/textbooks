@@ -23,3 +23,4 @@ Personal notes.
 - `../../env/mk.sh`でアセンブルして，`../../env/box.sh`で実行．その後に`Debugger`を押す
 - `0b`と`0x`を間違えてコンパイルしたときに失敗することがあるので気を付ける．
 - `cx`と`cs`を間違えて`get_drive_params.s`が上手く動いていなかった(typo多め)
+- 最後にpaddingしないで途中でpaddingした結果上手く文字列が出力されなかった．
