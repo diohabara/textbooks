@@ -12,8 +12,7 @@
 ### Setting for Ubuntu
 
 ```sh
-sudo apt install nasm
-sudo apt install bochs
+sudo apt install nasm  bochs-sdl bochs-x bochs
 ```
 
 ### Memo(JPN)
