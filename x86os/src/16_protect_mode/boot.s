@@ -262,10 +262,69 @@ stage_6:
   int 0x10
 
   ; end process
-  jmp $
+  jmp stage_7
 
 .s0 db "6th stage...", 0x0A, 0x0D, 0x0A, 0x0D
   db "[Push SPACE key to protect mode...]", 0x0A, 0x0D, 0
+
+;; GLOBAL DESCRIPTOR TABLE
+ALIGN 4, db 0
+GDT: dq 0x00_0_0_0_0_000000_0000
+.cs: dq 0x00_C_F_9_A_000000_FFFF
+.ds: dq 0x00_C_F_9_2_000000_FFFF
+.gdt_end:
+
+;; selector
+  SEL_CODE equ .cs - GDT
+  SEL_DATA equ .ds - GDT
+
+;; GDT
+GDTR: dw GDT.gdt_end - GDT - 1
+  dd GDT
+
+;; IDT
+IDTR: dw 0
+  dd 0
+
+  ;; stage7(boot process)
+stage_7:
+  cli
+
+  ; GDT load
+  lgdt [GDTR]                   ; global descriptor table register
+  lidt [IDTR]                   ; interupt descriptor table register
+
+  ; move to protect mode
+  mov eax, cr0
+  or ax, 1
+  mov cr0, eax
+
+  jmp $ + 2
+
+;; jump between segments
+[BITS 32]
+  DB 0x66
+  jmp SEL_CODE:CODE_32
+
+;; start of 32 bits
+CODE_32:
+  ;; intialize selector
+  mov ax, SEL_CODE
+  mov ds, ax
+  mov es, ax
+  mov fs, ax
+  mov gs, ax
+  mov ss, ax
+
+  ; copy kernel
+  mov ecx, (KERNEL_SIZE) / 4
+  mov esi, BOOT_END
+  mov edi, KERNEL_LOAD
+  cld
+  rep movsd
+
+  ; move to kernel
+  jmp KERNEL_LOAD
 
 ;; padding
   times (BOOT_SIZE) - ($ - $$) db 0
