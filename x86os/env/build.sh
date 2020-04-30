@@ -1,1 +1,3 @@
-../../env/mk.sh ../../env/build.sh
+#!/bin/sh
+
+../../env/mk.sh ; ../../env/box.sh
