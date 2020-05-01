@@ -63,7 +63,7 @@ itoa:
 
   ; fill in blank
   cmp    cx, 0
-  .400:   je     .40E
+  .40Q:   je     .40E
   mov    al, ' '
   cmp    [bp + 12], word 0b0100
   .42Q:   jne    .42E
