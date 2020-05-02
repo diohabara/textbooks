@@ -1,5 +1,4 @@
 %macro cdecl 1-*.nolist
-
     %rep %0 - 1
         push    %{-1:-1}
         %rotate -1
@@ -20,3 +19,22 @@ struc drive
   .head resw  1
   .sect resw  1
 endstruc
+
+%macro set_vect 1-*.nolist
+  push eax
+  push edi
+
+  mov edi, VECT_BASE + (%1 * 8)
+  mov eax, %2
+
+%if 3 == %0
+  mov [edi + 4], %3
+%endif
+
+  mov [edi + 0], ax
+  shr eax, 16
+  mov [edi + 6], ax
+
+  pop edi
+  pop eax
+%endmacro

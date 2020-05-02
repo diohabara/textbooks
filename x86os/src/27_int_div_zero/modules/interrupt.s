@@ -1,7 +1,8 @@
-int_init:
-  push ebp
-  mov ebp, esp
+ALIGN 4
+IDTR: dw 8 * 256 - 1
+  dd VECT_BASE
 
+init_int:
   push eax
   push ebx
   push ecx
@@ -27,9 +28,6 @@ int_init:
   pop ecx
   pop ebx
   pop eax
-
-  mov esp, ebp
-  pop ebp
 
   ret
 
@@ -78,3 +76,13 @@ int_stop:
 .p3: db "-------- ", 0
 .s4: db "   +12:"
 .p4: db "-------- ", 0
+
+int_zero_div:
+  pushf
+  push cs
+  push int_stop
+
+  mov eax, .s0
+  iret
+
+.s0: db " <  ZERO DIV  > ", 0
