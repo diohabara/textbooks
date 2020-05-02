@@ -80,6 +80,10 @@ kernel:
 
 .s0: db "  Hello, kernel!", 0
 
+ALIGN 4, db 0
+FONT_ADR: dd 0
+RTC_TIME: dd 0
+
 ;; modules
 %include "../modules/protect/vga.s"
 %include "../modules/protect/draw_char.s"
@@ -92,10 +96,6 @@ kernel:
 %include "../modules/protect/itoa.s"
 %include "../modules/protect/rtc.s"
 %include "../modules/protect/draw_time.s"
-
-ALIGN 4, db 0
-FONT_ADR: dd 0
-RTC_TIME: dd 0
 
 ;; padding
   times KERNEL_SIZE - ($ - $$) db 0

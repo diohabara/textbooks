@@ -4,7 +4,7 @@ rtc_get_time:
 
   push ebx
 
-  mov al, 0x04
+  mov al, 0x0A
   out 0x70, al
   in al, 0x71
   test al, 0x80

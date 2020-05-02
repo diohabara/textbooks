@@ -7,7 +7,7 @@ int_keyboard:
   mov ds, ax
   mov es, ax
 
-  ; red KB buffer
+  ; read KB buffer
   in al, 0x60
 
   ; save key code

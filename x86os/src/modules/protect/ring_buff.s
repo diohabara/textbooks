@@ -2,7 +2,6 @@ ring_rd:
   push ebp
   mov ebp, esp
 
-  push eax
   push ebx
   push esi
   push edi
@@ -29,7 +28,6 @@ ring_rd:
   pop edi
   pop esi
   pop ebx
-  pop eax
 
   mov esp, ebp
   pop ebp
@@ -40,11 +38,9 @@ ring_wr:
   push ebp
   mov ebp, esp
 
-  push eax
   push ebx
   push ecx
   push esi
-  push edi
 
   mov esi, [ebp + 8]
 
@@ -64,11 +60,9 @@ ring_wr:
   mov eax, 1
   .10E:
 
-  pop edi
   pop esi
   pop ecx
   pop ebx
-  pop eax
 
   mov esp, ebp
   pop ebp

@@ -1,24 +1,17 @@
+
 %macro cdecl 1-*.nolist
-    %rep %0 - 1
-        push    %{-1:-1}
-        %rotate -1
-    %endrep
-    %rotate -1
+%rep %0 - 1
+  push %{-1:-1}
+%rotate -1
+%endrep
+%rotate -1
 
-        call %1
+  call %1
 
-    %if 1 < %0
-        add sp, (__BITS__ >> 3) * (%0 - 1)
-    %endif
-
+%if 1 < %0
+  add sp, (__BITS__ >> 3) * (%0 - 1)
+%endif
 %endmacro
-
-struc drive
-  .no   resw  1
-  .cyln resw  1
-  .head resw  1
-  .sect resw  1
-endstruc
 
 %macro set_vect 1-*.nolist
   push eax
@@ -28,7 +21,7 @@ endstruc
   mov eax, %2
 
 %if 3 == %0
-  mov [edi + 4], %3
+	mov [edi + 4], %3
 %endif
 
   mov [edi + 0], ax
@@ -44,23 +37,14 @@ endstruc
   out %1, al
 %endmacro
 
-%define RING_ITEM_SIZE (1 << 4)
-%define RING_INDEX_MASK (RING_ITEM_SIZE - 1)
-
-struc ring_buff
-.rp resd 1
-.wp resd 1
-.item resb RING_ITEM_SIZE
-endstruc
-
 %macro set_desc 2-*
   push eax
   push edi
 
-  mov edi, %1                   ; descriptor address
+  mov edi, %1
   mov eax, %2
 
-%if 3  == %0
+%if 3 == %0
   mov [edi + 0], %3
 %endif
 
@@ -73,7 +57,7 @@ endstruc
   pop eax
 %endmacro
 
-%macro set_gate 2-*
+%macro  set_gate 2-*
   push eax
   push edi
 
@@ -87,3 +71,38 @@ endstruc
   pop edi
   pop eax
 %endmacro
+
+struc drive
+.no resw 1
+.cyln resw 1
+.head resw 1
+.sect resw 1
+endstruc
+
+%define RING_ITEM_SIZE (1 << 4)
+%define RING_INDEX_MASK (RING_ITEM_SIZE - 1)
+
+struc ring_buff
+.rp resd 1
+.wp resd 1
+.item resb RING_ITEM_SIZE
+endstruc
+
+struc rose
+.x0 resd 1
+.y0 resd 1
+.x1 resd 1
+.y1 resd 1
+
+.n resd 1
+.d resd 1
+
+.color_x resd 1
+.color_y resd 1
+.color_z resd 1
+.color_s resd 1
+.color_f resd 1
+.color_b resd 1
+
+.title resb 16
+endstruc
