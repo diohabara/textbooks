@@ -44,7 +44,6 @@ itoa:
   mov  [esi], byte '-'
   jmp  .22E
   .22F:
-
   mov [esi], byte '+'
   .22E:
   dec ecx
