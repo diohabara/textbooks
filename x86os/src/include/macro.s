@@ -1,4 +1,3 @@
-
 %macro cdecl 1-*.nolist
 %rep %0 - 1
   push %{-1:-1}

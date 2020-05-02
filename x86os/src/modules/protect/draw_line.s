@@ -17,7 +17,6 @@ draw_line:
   push esi
   push edi
 
-  ; x-cordinate
   mov eax, [ebp + 8]
   mov ebx, [ebp + 16]
   sub ebx, eax
@@ -30,7 +29,6 @@ draw_line:
   mov esi, 1
   .10E:
 
-  ; y-cordinate
   mov ecx, [ebp + 12]
   mov edx, [ebp + 20]
   sub edx, ecx
@@ -43,17 +41,14 @@ draw_line:
   mov edi, 1
   .20E:
 
-  ; x-cordinate
   mov [ebp - 8], eax
   mov [ebp - 12], ebx
   mov [ebp - 16], esi
 
-  ; y-cordinate
   mov [ebp - 20], ecx
   mov [ebp - 24], edx
   mov [ebp - 28], edi
 
-  ; set standard
   cmp ebx, edx
   jg .22F
 
@@ -66,24 +61,33 @@ draw_line:
   lea edi, [ebp - 20]
   .22E:
 
-  ; number of dots
   mov ecx, [esi - 4]
   cmp ecx, 0
   jnz .30E
   mov ecx, 1
   .30E:
 
-  ; display line
   .50L:
 
+%ifdef  USE_SYSTEM_CALL
+  mov eax, ecx
+
+  mov ebx, [ebp + 24]
+  mov ecx, [ebp - 8]
+  mov edx, [ebp - 20]
+  int 0x82
+
+  mov ecx, eax
+%else
   cdecl draw_pixel, dword [ebp - 8], dword [ebp - 20], dword [ebp + 24]
+%endif
+
   mov eax, [esi - 8]
   add [esi - 0], eax
 
   mov eax, [ebp - 4]
   add eax, [edi - 4]
-
-  mov ebx, [esi -4]
+  mov ebx, [esi - 4]
 
   cmp eax, ebx
   jl .52E
@@ -104,6 +108,9 @@ draw_line:
   pop ebx
   pop eax
 
+  ;-----------------------------------------
+  ; 【スタックフレームの破棄】
+  ;-----------------------------------------
   mov esp, ebp
   pop ebp
 
@@ -111,10 +118,10 @@ draw_line:
 
 .s0:    db '        ', 0
 .t0:    dw 0x0000, 0x0800
-        dw 0x0100, 0x0900
-        dw 0x0200, 0x0A00
-        dw 0x0300, 0x0B00
-        dw 0x0400, 0x0C00
-        dw 0x0500, 0x0D00
-        dw 0x0600, 0x0E00
-        dw 0x0700, 0x0F00
+  dw 0x0100, 0x0900
+  dw 0x0200, 0x0A00
+  dw 0x0300, 0x0B00
+  dw 0x0400, 0x0C00
+  dw 0x0500, 0x0D00
+  dw 0x0600, 0x0E00
+  dw 0x0700, 0x0F00
